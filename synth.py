@@ -160,15 +160,15 @@ class MonoSynth(BaseSynth):
             pygame.time.delay(ms)
             sound.stop()
 
-    # def play_chord_with_ratios_over_hz(self, hz: float, ratios: list, ms=0):
-    #     wave = self._wave_fn(hz)
-    #     for r in ratios[1:]:
-    #         wave = sum([wave, self._wave_fn(hz * r / ratios[0])])
-    #     self.sound = pygame.sndarray.make_sound(wave)
-    #     self.sound.play(-1)
-    #     if ms > 0:
-    #         pygame.time.delay(ms)
-    #         self.sound.stop()
+    def play_chord_with_ratios_over_hz(self, hz: float, ratios: list, ms=0):
+        wave = self._wave_fn(hz)
+        for r in ratios[1:]:
+            wave = sum([wave, self._wave_fn(hz * r / ratios[0])])
+        self.sound = pygame.sndarray.make_sound(wave)
+        self.sound.play(-1)
+        if ms > 0:
+            pygame.time.delay(ms)
+            self.sound.stop()
 
     def handle_music_key_press(self, key):
         try:
