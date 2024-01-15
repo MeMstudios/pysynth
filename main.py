@@ -11,20 +11,21 @@ running = True
 print("Welcome to PySynth!")
 
 while running:
-    event = pygame.event.wait()
-    if event.type == KEYDOWN or event.type == pygame.QUIT:
-        if event.key == K_ESCAPE:
-            break
-        elif event.key == K_RIGHT:
-            print("Transposing up!")
-            synth.transpose_up()
-        elif event.key == K_UP:
-            print("Octave up!")
-            synth.octave_up()
-        elif event.key == K_DOWN:
-            print("Octave down!")
-            synth.octave_down()
-        else:
-            synth.handle_music_key_press(event.key)
-    elif event.type == KEYUP:
-        synth.handle_music_key_release(event.key)
+    #event = pygame.event.wait()
+    for event in pygame.event.get():
+        if event.type == KEYDOWN:
+            if event.key == K_RIGHT:
+                print("Transposing up!")
+                synth.transpose_up()
+            elif event.key == K_UP:
+                print("Octave up!")
+                synth.octave_up()
+            elif event.key == K_DOWN:
+                print("Octave down!")
+                synth.octave_down()
+            else:
+                synth.handle_music_key_press(event.key)
+        elif event.type == KEYUP:
+            synth.handle_music_key_release(event.key)
+        elif event.type == pygame.QUIT:
+            running = False
