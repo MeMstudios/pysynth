@@ -147,6 +147,9 @@ class MonoSynth(BaseSynth):
         else:
             raise f"Shape {new_shape} not implemented!"
 
+    def wave_fn(self, hz):
+        return self._wave_fn(hz)
+
     def stop_sound(self, hz):
         sound = self._sounds[hz]
         sound.stop()
@@ -173,12 +176,14 @@ class MonoSynth(BaseSynth):
     def handle_music_key_press(self, key):
         try:
             self.play_sound_at_hz(self.scale[key])
+            return self.scale[key]
         except KeyError as e:
             print("Key not implemented!", e)
 
     def handle_music_key_release(self, key):
         try:
             self.stop_sound(self.scale[key])
+            return self.scale[key]
         except KeyError as e:
             print("Key not implemented!", e)
 
