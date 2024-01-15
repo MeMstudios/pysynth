@@ -16,7 +16,7 @@ RATIOS = [
     1.681793,
     1.781797,
     1.887749,
-    2
+    2,
 ]
 
 
@@ -96,18 +96,20 @@ class BaseSynth:
 
     def sine_wave(self, hz: float) -> np.ndarray:
         """Compute N samples of a sine wave with given frequency and peak amplitude.
-           Defaults to one second.
+        Defaults to one second.
         """
         # Adapted this beauty from https://stackoverflow.com/a/62250319
         return np.array(
-            [self.peak * np.sin(2.0 * np.pi * round(hz) * x / self.sample_rate) for x in range(0, self.sample_rate)]
+            [
+                self.peak * np.sin(2.0 * np.pi * round(hz) * x / self.sample_rate)
+                for x in range(0, self.sample_rate)
+            ]
         ).astype(np.int16)
 
     def square_wave(self, hz) -> np.ndarray:
         """Compute N samples of a sine wave with given frequency and peak amplitude.
-           Defaults to one second.
+        Defaults to one second.
         """
-        # Thank you, ChatGPT, everyone else is dumb
         t = np.linspace(0, 1, self.sample_rate, endpoint=False)
         wave = np.sign(np.sin(2 * np.pi * round(hz) * t))
         return (self.peak * wave).astype(np.int16)
@@ -122,7 +124,13 @@ class MonoSynth(BaseSynth):
     def __init__(self, sample_rate=44100, buffer_size=512, mixer_size=-16, peak=4096):
         super().__init__(sample_rate, buffer_size, mixer_size, peak)
         self._sounds = {}
-        pygame.mixer.pre_init(self.sample_rate, self.mixer_size, self.channels, self.buffer_size)
+        pygame.mixer.pre_init(
+            frequency=self.sample_rate,
+            size=self.mixer_size,
+            channels=self.channels,
+            buffer=self.buffer_size,
+            allowedchanges=0,
+        )
 
     @property
     def shape(self):
@@ -162,13 +170,13 @@ class MonoSynth(BaseSynth):
     #         pygame.time.delay(ms)
     #         self.sound.stop()
 
-    def handle_key_press(self, key):
+    def handle_music_key_press(self, key):
         try:
             self.play_sound_at_hz(self.scale[key])
         except KeyError as e:
             print("Key not implemented!", e)
 
-    def handle_key_release(self, key):
+    def handle_music_key_release(self, key):
         try:
             self.stop_sound(self.scale[key])
         except KeyError as e:
