@@ -26,4 +26,4 @@ The methods `play_sound_at_hz` and `stop_sound` access a dict of pygame Sound ob
 The transpose and octave functions update the scale by setting the base_hz.  
 
 ## Main
-In the main file we initialize the MonoSynth and the pygame event loop.  We'll handle any key presses aside from the music notes.  There is a blank window so you can focus on something to play the synth, but of course the next thing is to put some visuals on there!  
+In the main file we initialize the MonoSynth and the pygame event loop.  We'll handle any key presses aside from the music notes.  I have a purple window which will display a sine wave at your frequency and sample rate.  My idea is to create a new class that excepts a synth and generates the point plots to display the waves.  
