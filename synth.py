@@ -39,14 +39,15 @@ RATIOS = [
 
 
 class BaseSynth:
-    _base_hz = 440
     _scale: dict
+    base_hz: int
     sample_rate: int  # Samples per second
     buffer_size: int  # Buffer size of the pygame mixer
     mixer_size: int  # Mixer size I believe 16 bits up and down
     peak: int  # Peak amplitude
 
-    def __init__(self, sample_rate=44100, buffer_size=512, mixer_size=-16, peak=4096):
+    def __init__(self, base_hz=440, sample_rate=44100, buffer_size=512, mixer_size=-16, peak=4096):
+        self.base_hz = base_hz
         self.sample_rate = sample_rate
         self.buffer_size = buffer_size
         self.mixer_size = mixer_size
@@ -87,7 +88,7 @@ class BaseSynth:
 
     @property
     def base_hz(self):
-        return self._base_hz
+        return self.base_hz
 
     @base_hz.setter
     def base_hz(self, hz):
@@ -121,8 +122,8 @@ class MonoSynth(BaseSynth):
     _wave_fn = BaseSynth.sine_wave
     _sounds: dict
 
-    def __init__(self, sample_rate=44100, buffer_size=512, mixer_size=-16, peak=4096):
-        super().__init__(sample_rate, buffer_size, mixer_size, peak)
+    def __init__(self, base_hz=440, sample_rate=44100, buffer_size=512, mixer_size=-16, peak=4096):
+        super().__init__(base_hz, sample_rate, buffer_size, mixer_size, peak)
         self._sounds = {}
         pygame.mixer.pre_init(
             frequency=self.sample_rate,
