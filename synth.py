@@ -108,7 +108,7 @@ class BaseSynth:
         ).astype(np.int16)
 
     def square_wave(self, hz) -> np.ndarray:
-        """Compute N samples of a sine wave with given frequency and peak amplitude.
+        """Compute N samples of a square wave with given frequency and peak amplitude.
         Defaults to one second.
         """
         t = np.linspace(0, 1, self.sample_rate, endpoint=False)

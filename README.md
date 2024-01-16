@@ -12,18 +12,18 @@ Python3, Pygame, numpy
 It turns out, there are two ways you can divide the western music scale into note ratios: theoretical ratios and equal temperament ratios.  Both are at the top of the file and theoretical ratios are commented out because I found the equal temperament to be more suitable for this environment as they are more rigorous and don't include repeating numbers (0.66666).  
 
 ### BaseSynth
-The BaseSynth is where I'm using some fancy Python syntax to set the scale dict using the current base_hz (default to 440) and the ratios constant.  The keys of the dict are the pygame keyboard key constants mimicking a piano starting on A (440 hz).  So, you can play a minor scale by going straight across the middle row, a through k.  
+The BaseSynth is where I'm using some fancy Python syntax to set the `scale` dict using the current `base_hz` (default to 440) and the `ratios` constant.  The keys of the dict are the Pygame key constants mimicking a piano starting with A (440 hz).  So, you can play a minor scale by going straight across the middle row, a through k.  
 
-In the wave functions, we use numpy to generate arrays using equations I worked over from examples and some AI assistance.  These can be converted to audio using pygame's sndarray module!  
+In the wave functions, we use numpy to generate arrays using equations I worked over from examples and some AI assistance.  These can be converted to audio using Pygame's `sndarray` module!  
 
 ### MonoSynth
-This is the first implementation of the BaseSynth where we use pygame to initialize a mixer and implement a shape setter.  
+This is the first implementation of the BaseSynth where we use Pygame to initialize a mixer and implement a shape setter.  
 
-The methods `play_sound_at_hz` and `stop_sound` access a dict of pygame Sound objects to play or stop them.  
+The methods `play_sound_at_hz` and `stop_sound` access a dict of Pygame Sound objects to play or stop them.  
 
 `handle_music_key_press` expects you to handle keys not related to music before calling this.  
 
 The transpose and octave functions update the scale by setting the base_hz.  
 
 ## Main
-In the main file we initialize the MonoSynth and the pygame event loop.  We'll handle any key presses aside from the music notes.  I have a purple window which will display a sine wave at your frequency and sample rate.  My idea is to create a new class that excepts a synth and generates the point plots to display the waves.  
+In the main file we initialize the MonoSynth and the Pygame event loop.  We'll handle any key presses aside from the music notes.  I have a purple window which will display a sine wave at your frequency and sample rate.  My idea is to create a new class that accepts a synth and generates the point plots to display the waves.  
